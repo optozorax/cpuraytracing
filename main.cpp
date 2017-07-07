@@ -1,14 +1,10 @@
-#include "math.h"
-#include "film.h"
-#include "camera.h"
-#include "renderer.h"
+#include "render/math.h"
+#include "render/film.h"
+#include "render/camera.h"
+#include "render/renderer.h"
 
-#include "scene.h"
-#include "sphere.h"
-
-#include "metal.h"
-#include "diffuse.h"
-#include "dielectric.h"
+#include "objects/all.h"
+#include "materials/all.h"
 
 using namespace gui;
 

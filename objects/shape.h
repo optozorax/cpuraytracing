@@ -1,7 +1,7 @@
 #ifndef GUI_SHAPE_H
 #define GUI_SHAPE_H
 
-#include "material.h"
+#include "materials/material.h"
 
 namespace gui {
 	class Ray;

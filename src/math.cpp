@@ -1,5 +1,5 @@
-#include "math.h"
-#include "vector3.h"
+#include "render/math.h"
+#include "render/vector3.h"
 
 namespace gui {
 	const float Math::PI = 3.1415926f;

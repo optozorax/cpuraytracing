@@ -1,10 +1,11 @@
-#include "ray.h"
-#include "math.h"
-#include "film.h"
-#include "scene.h"
-#include "camera.h"
-#include "renderer.h"
-#include "intersection.h"
+#include "render/ray.h"
+#include "render/math.h"
+#include "render/film.h"
+#include "render/camera.h"
+#include "render/renderer.h"
+#include "render/intersection.h"
+
+#include "objects/scene.h"
 
 namespace gui {
 	long long Renderer::nIntersects = 0;

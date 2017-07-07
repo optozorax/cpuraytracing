@@ -1,5 +1,5 @@
-#include "scene.h"
-#include "intersection.h"
+#include "objects/scene.h"
+#include "render/intersection.h"
 
 namespace gui {
 	bool Scene::intersect(

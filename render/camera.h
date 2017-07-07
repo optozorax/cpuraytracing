@@ -1,7 +1,7 @@
 #ifndef GUI_CAMERA_H
 #define GUI_CAMERA_H
 
-#include "vector3.h"
+#include "render/vector3.h"
 
 namespace gui {
 	class Ray;

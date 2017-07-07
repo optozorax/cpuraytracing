@@ -1,7 +1,8 @@
-#include "ray.h"
-#include "sphere.h"
-#include "renderer.h"
-#include "intersection.h"
+#include "render/ray.h"
+#include "render/renderer.h"
+#include "render/intersection.h"
+
+#include "objects/sphere.h"
 
 namespace gui {
 	bool Sphere::intersect(

@@ -1,7 +1,7 @@
-#include "ray.h"
-#include "film.h"
-#include "math.h"
-#include "camera.h"
+#include "render/ray.h"
+#include "render/film.h"
+#include "render/math.h"
+#include "render/camera.h"
 
 namespace gui {
 	Camera::Camera(Film& film, float fovy, float apeture, float focal)

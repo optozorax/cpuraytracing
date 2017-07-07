@@ -1,7 +1,7 @@
 #ifndef GUI_DIELECTRIC_H
 #define GUI_DIELECTRIC_H
 
-#include "material.h"
+#include "materials/material.h"
 
 namespace gui {
 	class Dielectric : public Material {

@@ -1,7 +1,8 @@
-#include "ray.h"
-#include "math.h"
-#include "metal.h"
-#include "intersection.h"
+#include "render/ray.h"
+#include "render/math.h"
+#include "render/intersection.h"
+
+#include "materials/metal.h"
 
 namespace gui {
 	bool Metal::scatter(

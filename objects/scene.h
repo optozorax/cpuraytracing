@@ -2,7 +2,7 @@
 #define GUI_SCENE_H
 
 #include <vector>
-#include "shape.h"
+#include "objects/shape.h"
 
 namespace gui {
 	class Scene : public Shape {

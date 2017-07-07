@@ -2,7 +2,7 @@
 #define GUI_INTERSECTION_H
 
 #include <limits>
-#include "vector3.h"
+#include "render/vector3.h"
 
 namespace gui {
 	class Material;

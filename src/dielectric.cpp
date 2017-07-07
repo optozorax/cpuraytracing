@@ -1,10 +1,11 @@
 #include <cmath>
 
-#include "ray.h"
-#include "math.h"
-#include "vector3.h"
-#include "dielectric.h"
-#include "intersection.h"
+#include "render/ray.h"
+#include "render/math.h"
+#include "render/vector3.h"
+#include "render/intersection.h"
+
+#include "materials/dielectric.h"
 
 namespace gui {
 	bool Dielectric::scatter(

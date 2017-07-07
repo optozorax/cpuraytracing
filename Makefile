@@ -1,7 +1,16 @@
-CXXFLAGS += -O2 -std=c++11 -Wall
+CXX = g++
+CXXFLAGS += -O3 -std=c++11 -w  -I .
+OBJECTS = $(patsubst src/%,%, $(patsubst %.cpp,%.o,$(wildcard src/*.cpp)))
+OBJECTS +=  main.o
+all: 
 
-all: main.o math.o film.o camera.o sphere.o scene.o diffuse.o metal.o dielectric.o renderer.o
-	g++ main.o math.o film.o camera.o sphere.o scene.o diffuse.o metal.o dielectric.o renderer.o
+all: main
+
+main: $(OBJECTS) 
+	$(CXX) $(CXXFLAGS) $(OBJECTS) -o main.exe
+
+%.o: src/%.cpp
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 clean:
 	rm -f *.o *.out *.ppm

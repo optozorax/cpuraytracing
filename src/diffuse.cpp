@@ -1,7 +1,8 @@
-#include "ray.h"
-#include "math.h"
-#include "diffuse.h"
-#include "intersection.h"
+#include "render/ray.h"
+#include "render/math.h"
+#include "render/intersection.h"
+
+#include "materials/diffuse.h"
 
 namespace gui {
 	bool Diffuse::scatter(

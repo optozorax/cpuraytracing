@@ -1,8 +1,8 @@
 #ifndef GUI_SPHERE_H
 #define GUI_SPHERE_H
 
-#include "shape.h"
-#include "vector3.h"
+#include "objects/shape.h"
+#include "render/vector3.h"
 
 namespace gui {
 	class Sphere : public Shape {

@@ -1,8 +1,8 @@
 #ifndef GUI_DIFFUSE_H
 #define GUI_DIFFUSE_H
 
-#include "vector3.h"
-#include "material.h"
+#include "render/vector3.h"
+#include "materials/material.h"
 
 namespace gui {
 	class Diffuse : public Material {

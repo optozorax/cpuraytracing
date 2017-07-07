@@ -1,7 +1,7 @@
 #include <fstream>
 
-#include "film.h"
-#include "vector3.h"
+#include "render/film.h"
+#include "render/vector3.h"
 
 namespace gui {
 	Film::Film(int width, int height) : width(width), height(height) {
