@@ -30,10 +30,11 @@ void initScene(Scene& scene) {
 	shapes.push_back(new Sphere(Vector3(-4, 1, 0), 1, new Diffuse(Vector3(0.4f, 0.2f, 0.1f))));
 	shapes.push_back(new Sphere(Vector3(4, 1, 0), 1, new Metal(Vector3(0.7f, 0.6f, 0.5f))));
 	shapes.push_back(new Sphere(Vector3(0, -1000, 0), 1000, new Diffuse(Vector3(0.5f))));
+	shapes.push_back(new Sphere(Vector3(8, 5, 0), 2, new Lamp(Vector3(10.0f))));
 }
 
 int main() {
-	Film film(256, 128);
+	Film film(1024, 576);
 
 	Camera camera(film, 20, 0.1f, 12);
 	camera.position = Vector3(12, 2, 3);
@@ -42,8 +43,11 @@ int main() {
 	Scene scene;
 	initScene(scene);
 
-	Renderer renderer(100);
+	Renderer renderer(2000);
 	renderer.render(scene, camera);
+
+	film.gammaCorrection();
+	film.writePPM();
 
 	return 0;
 }

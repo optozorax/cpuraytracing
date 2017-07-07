@@ -10,8 +10,6 @@ namespace gui {
 		float tMin,
 		float tMax,
 		Intersection& intersection) const {
-			
-			++Renderer::nIntersects;
 
 			Vector3 co = ray.origin - center;
 			float a = ray.direction.lengthSquared();

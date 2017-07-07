@@ -1,13 +1,13 @@
-#ifndef GUI_METAL_H
-#define GUI_METAL_H
+#ifndef GUI_LAMP_H
+#define GUI_LAMP_H
 
 #include "render/vector3.h"
 #include "materials/material.h"
 
 namespace gui {
-	class Metal : public Material {
+	class Lamp : public Material {
 	public:
-		Metal(const Vector3& albedo, float fuzzy = 0): albedo(albedo), fuzzy(fuzzy)
+		Lamp(const Vector3& albedo) : albedo(albedo)
 		{ }
 
 		bool scatter(
@@ -20,7 +20,6 @@ namespace gui {
 
 	public:
 		Vector3 albedo;
-		float fuzzy;
 	};
 }
 

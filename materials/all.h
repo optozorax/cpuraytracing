@@ -4,5 +4,6 @@
 #include "materials/dielectric.h"
 #include "materials/diffuse.h"
 #include "materials/metal.h"
+#include "materials/lamp.h"
 
 #endif

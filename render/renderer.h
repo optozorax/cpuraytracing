@@ -13,9 +13,14 @@ namespace gui {
 		void render(const Scene& scene, Camera& camera) const;
 		Vector3 radiance(const Ray& ray, const Scene& scene, int depth) const;
 
+	private:
+		float getCurrentTime(void);
+		void onRendering(void);
+		void onEveryLine(float percent);
+
 	public:
 		int samples;
-		static long long nIntersects;
+		float time;
 	};
 }
 

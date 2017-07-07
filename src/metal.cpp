@@ -8,7 +8,11 @@ namespace gui {
 	bool Metal::scatter(
 		const Ray& in,
 		const Intersection& intersection,
-		Vector3& attenuation, Ray& scattered) const {
+		Vector3& attenuation, 
+		Ray& scattered,
+		bool& light) const {
+
+		light = false;
 
 		attenuation = albedo;
 		scattered.origin = intersection.position + intersection.normal * 0.001f;

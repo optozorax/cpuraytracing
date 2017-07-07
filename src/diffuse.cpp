@@ -9,7 +9,10 @@ namespace gui {
 		const Ray& in,
 		const Intersection& intersection,
 		Vector3& attenuation,
-		Ray& scattered) const {
+		Ray& scattered,
+		bool& light) const {
+
+		light = false;
 
 		attenuation = albedo;
 		scattered.origin = intersection.position + intersection.normal * 0.001f;

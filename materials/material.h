@@ -15,7 +15,8 @@ namespace gui {
 			const Ray& in,
 			const Intersection& intersection,
 			Vector3& attenuation,
-			Ray& scattered
+			Ray& scattered,
+			bool& light
 		) const = 0;
 	};
 }

@@ -13,7 +13,8 @@ namespace gui {
 			const Ray& in,
 			const Intersection& intersection,
 			Vector3& attenuation,
-			Ray& scattered) const override;
+			Ray& scattered,
+			bool& light) const override;
 
 		float schlick(float cosine, float niOverNt) const;
 

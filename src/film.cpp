@@ -28,6 +28,10 @@ namespace gui {
 				c.x = sqrtf(c.x);
 				c.y = sqrtf(c.y);
 				c.z = sqrtf(c.z);
+
+				if (c.x > 1) c.x = 1;
+				if (c.y > 1) c.y = 1;
+				if (c.z > 1) c.z = 1;
 			}
 		}
 	}

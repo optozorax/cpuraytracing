@@ -1,3 +1,5 @@
+#include <windows.h>
+
 #include "render/ray.h"
 #include "render/math.h"
 #include "render/film.h"
@@ -8,31 +10,36 @@
 #include "objects/scene.h"
 
 namespace gui {
-	long long Renderer::nIntersects = 0;
-
 	Vector3 Renderer::radiance(const Ray& ray, const Scene& scene, int depth) const {
 		Intersection intersection;
 		if (scene.intersect(ray, 0, 10000, intersection)) {
 			Ray scattered;
 			Vector3 attenuation;
+			bool light = false;
 			if (intersection.material->scatter(
-				ray, intersection, attenuation, scattered) && depth < 30) {
+				ray, intersection, attenuation, scattered, light) && depth < 30) {
 				return attenuation * radiance(scattered, scene, ++depth);
 			} else {
-				return Vector3(0);
+				if (light)
+					return attenuation;
+				else
+					return Vector3(0);
 			}
 		} else {
 			Vector3 unit = ray.direction;
 			float k = (unit.identity().y + 1) * 0.5f;
-			return Vector3(1) * (1 - k) + Vector3(0.5f, 0.7f, 1) * k;
+			//return Vector3(1) * (1 - k) + Vector3(0.5f, 0.7f, 1) * k;
+			return Vector3(0.1f);
 		}
 	}
 
 	void Renderer::render(const Scene& scene, Camera& camera) const {
+		onRendering();
+
 		float r = 1.0f / samples;
 		for(int i = 0; i < camera.film.height; ++i) {
-			printf("\rrendering %5.2f%%", 100.0f * (i + 1) / camera.film.height);
-			fflush(stdout);
+			onEveryLine(float(i+1)/camera.film.height);
+			
 			for(int j = 0; j < camera.film.width; ++j) {
 				for (int k = 0; k < samples; ++k) {
 					Ray ray = camera.getRay(j + Math::random(), i + Math::random());
@@ -41,11 +48,23 @@ namespace gui {
 				camera.film.pixels[i][j] *= r;
 			}
 		}
+	}
 
-		printf("\nstatistical data:\n");
-		printf("num intersects: %lld\n", nIntersects);
+	float Renderer::getCurrentTime(void) {
+		return GetTickCount()/1000.0f;
+	}
 
-		camera.film.gammaCorrection();
-		camera.film.writePPM();
+	void Renderer::onRendering() {
+		time = getCurrentTime();
+	}
+
+	void Renderer::onEveryLine(float percent) {
+		float nowTime = getCurrentTime() - time;
+		float approxTime = nowTime/percent;
+		float leftTime = approxTime - nowTime;
+		printf("\r%5.2f%%; Time: %5.2fs;"
+			" Approximate time: %5.2fs; Time left: %5.2fs.", 
+			100.0f * percent, nowTime, approxTime, leftTime);
+		fflush(stdout);
 	}
 }

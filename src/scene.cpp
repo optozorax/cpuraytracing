@@ -9,8 +9,8 @@ namespace gui {
 		Intersection& intersection) const {
 			
 		bool intersected = false;
-		for(auto e : shapes) {
-			if(e->intersect(ray, tMin, tMax, intersection)) {
+		for(auto i : shapes) {
+			if(i->intersect(ray, tMin, tMax, intersection)) {
 				if(intersection.t < tMax) {
 					tMax = intersection.t;
 					intersected = true;
