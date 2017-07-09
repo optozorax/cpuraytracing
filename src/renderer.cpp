@@ -17,7 +17,7 @@ namespace gui {
 			Vector3 attenuation;
 			bool light = false;
 			if (intersection.material->scatter(
-				ray, intersection, attenuation, scattered, light) && depth < 30) {
+				ray, intersection, attenuation, scattered, light) && depth < 5) {
 				return attenuation * radiance(scattered, scene, ++depth);
 			} else {
 				if (light)
@@ -26,10 +26,7 @@ namespace gui {
 					return Vector3(0);
 			}
 		} else {
-			Vector3 unit = ray.direction;
-			float k = (unit.identity().y + 1) * 0.5f;
-			//return Vector3(1) * (1 - k) + Vector3(0.5f, 0.7f, 1) * k;
-			return Vector3(0.1f);
+			return Vector3(0);
 		}
 	}
 

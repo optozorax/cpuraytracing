@@ -23,9 +23,11 @@ namespace gui {
 		Vector3 normal;
 
 		if (in.direction.dot(intersection.normal) > 0) {
+			// Out of object
 			niOverNt = ior;
 			normal = -intersection.normal;
 		} else {
+			// In object
 			niOverNt = 1 / ior;
 			normal = intersection.normal;
 		}
