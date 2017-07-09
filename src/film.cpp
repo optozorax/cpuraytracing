@@ -36,9 +36,9 @@ namespace gui {
 		}
 	}
 
-	void Film::writePPM() const {
+	void Film::writePPM(char* name) const {
 		std::ofstream file;
-		file.open("image.ppm");
+		file.open(name);
 		file << "P3\n" << width << ' ' << height << '\n' << "255\n";
 		for(int i = 0; i < height; ++i) {
 			for(int j = 0; j < width; ++j) {

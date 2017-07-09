@@ -7,6 +7,8 @@
 namespace gui {
 	class Metal : public Material {
 	public:
+		Metal() {}
+
 		Metal(const Vector3& albedo, float fuzzy = 0): albedo(albedo), fuzzy(fuzzy)
 		{ }
 

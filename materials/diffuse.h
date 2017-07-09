@@ -7,6 +7,8 @@
 namespace gui {
 	class Diffuse : public Material {
 	public:
+		Diffuse() {}
+		
 		Diffuse(const Vector3& albedo) : albedo(albedo)
 		{ }
 

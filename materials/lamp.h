@@ -7,6 +7,8 @@
 namespace gui {
 	class Lamp : public Material {
 	public:
+		Lamp() {}
+
 		Lamp(const Vector3& albedo) : albedo(albedo)
 		{ }
 

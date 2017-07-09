@@ -6,6 +6,8 @@
 namespace gui {
 	class Dielectric : public Material {
 	public:
+		Dielectric() {}
+
 		Dielectric(float ior) : ior(ior)
 		{ }
 
