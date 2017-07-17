@@ -1,8 +1,6 @@
 CXX = g++
-CXXFLAGS += -O3 -std=c++11 -w -I . -fpermissive
+CXXFLAGS += -O3 -std=c++11 -w -I . -fpermissive -static-libgcc
 OBJECTS = $(patsubst src/%,%, $(patsubst %.cpp,%.o,$(wildcard src/*.cpp)))
-
-all: 
 
 all: demo1 demo2 demo3
 

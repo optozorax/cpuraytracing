@@ -88,7 +88,7 @@ int main() {
 	camera.position = Vector3(15, 2, 0);
 	camera.lookAt(Vector3(0, 2, 0));
 
-	Renderer renderer(1000);
+	Renderer renderer(2000);
 	renderer.render(scene, camera);
 
 	film.gammaCorrection();

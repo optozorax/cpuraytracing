@@ -38,13 +38,13 @@ int main() {
 	Scene scene;
 	initScene(scene);
 
-	Film film(1024, 512);
+	Film film(1024, 576);
 
 	Camera camera(film, 20, 0.1f, 12);
 	camera.position = Vector3(12, 2, 3);
 	camera.lookAt(Vector3(0, 1, 0));
 
-	Renderer renderer(1000);
+	Renderer renderer(2000);
 	renderer.render(scene, camera);
 
 	film.gammaCorrection();

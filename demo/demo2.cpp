@@ -45,7 +45,7 @@ int main() {
 	Scene scene;
 	initScene(scene);
 
-	Renderer renderer(2000);
+	Renderer renderer(4000);
 	renderer.render(scene, camera);
 
 	film.gammaCorrection();

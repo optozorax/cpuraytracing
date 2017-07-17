@@ -1,7 +1,59 @@
-## My Ray Tracing Experiment
+# My Ray Tracing Experiment
 
-![](result.png)
-Image with uniform lighting from sky. Size: `1024 x 512`, `1000 samples` per pixel, `59m 36s` rendering time.
+## Description
 
-![](result2.png)
-Image with light from lamp sphere. Size: `1024 x 768`, `2000 samples` per pixel, `9h 4m` rendering time.
+It is my attempt to understand how [Ray Tracing](https://en.wikipedia.org/wiki/Ray_tracing_(graphics)) works and repeat some rendering techniques.
+
+Source code received from `GUI-Graphics` repository, which written with `"Ray Tracing in One Weekend"` book.
+
+## Features:
+- Photorealistic rendering.
+- [Depth of field](https://en.wikipedia.org/wiki/Depth_of_field) effect.
+- [Caustic](https://en.wikipedia.org/wiki/Caustic_(optics)) effect(received by rendering algorithm).
+- Natural shadows(received by rendering algorithm).
+- Polymorphism of objects and materials: it's possible to set any material for each object.
+- Objects:
+  - Sphere
+  - Triangle
+- Materials:
+  - Metal
+  - Dielectric
+  - Diffuse
+  - Glow
+- Objects with materials:
+  - Sky
+
+## Limitations:
+- Impossible to optimize.
+- Impossible to create dotty light source.
+- Very long rendering.
+
+## Demo1
+![](image1.png)
+Image with uniform lighting from sky. 
+
+Size: `1024 x 576`.
+
+`2000 samples` per pixel.
+
+`4h 33m` rendering time.
+
+## Demo2
+![](image2.png)
+Image with light from glowing sphere in empty space. 
+
+Size: `1024 x 576`. 
+
+`4000 samples` per pixel. 
+
+`9h 1m` rendering time.
+
+## Demo3
+![](image3.png)
+Image with light from sqare lamp, with walls. 
+
+Size: `1024 x 1024`. 
+
+`2000 samples` per pixel. 
+
+`2h 22m` rendering time.
