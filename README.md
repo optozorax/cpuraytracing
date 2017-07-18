@@ -54,6 +54,6 @@ Image with light from sqare lamp, with walls.
 
 Size: `1024 x 1024`. 
 
-`2000 samples` per pixel. 
+`5000 samples` per pixel. 
 
-`2h 22m` rendering time.
+`5h 47m` rendering time.
