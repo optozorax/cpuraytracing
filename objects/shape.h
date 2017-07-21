@@ -13,9 +13,7 @@ namespace gui {
 		{ }
 
 		virtual ~Shape() {
-			try {
-				delete material;
-			} catch (...) {}
+			delete material;
 		}
 
 		virtual bool intersect(

@@ -1,5 +1,7 @@
 #include <fstream>
 
+#include "EasyBMP/EasyBMP.h"
+
 #include "render/film.h"
 #include "render/vector3.h"
 
@@ -49,5 +51,25 @@ namespace gui {
 			file << '\n';
 		}
 		file.close();
+	}
+
+	void Film::writeBMP(char* name) const {
+		BMP AnImage;
+		AnImage.SetBitDepth(24);
+		AnImage.SetSize(width, height);
+
+		RGBApixel pix;
+		for (int i = 0; i < width; i++) {
+			for (int j = 0; j < height; j++) {
+				pix.Alpha = 255;
+				pix.Red = pixels[j][i].x * 255;
+				pix.Green = pixels[j][i].y * 255;
+				pix.Blue = pixels[j][i].z * 255;
+
+				AnImage.SetPixel(i, j, pix);
+			}
+		}
+
+		AnImage.WriteToFile(name);
 	}
 }

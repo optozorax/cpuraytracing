@@ -7,20 +7,25 @@ namespace gui {
 
 	class Renderer {
 	public:
-		Renderer(int samples) : samples(samples)
+		Renderer(int samples) : 
+			samples(samples), 
+			maxDepth(30),
+			maxT(10000)
 		{ }
 
 		void render(const Scene& scene, Camera& camera) const;
 		Vector3 radiance(const Ray& ray, const Scene& scene, int depth) const;
 
-	private:
-		float getCurrentTime(void);
-		void onRendering(void);
-		void onEveryLine(float percent);
-
 	public:
 		int samples;
-		float time;
+		int maxDepth;
+		int maxT;
+
+	public:
+		void onRendering(void);
+		void onEveryLine(float percent);
+		void onEndRendering(void);
+		float pastTime;
 	};
 }
 

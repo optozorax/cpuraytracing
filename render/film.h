@@ -10,6 +10,7 @@ namespace gui {
 		~Film();
 
 		void writePPM(char* name) const;
+		void writeBMP(char* name) const;
 		void gammaCorrection();
 
 	public:

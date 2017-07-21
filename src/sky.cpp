@@ -27,9 +27,9 @@ namespace gui {
 		float tMax,
 		Intersection& intersection) const {
 
-		intersection.t = tMax-0.001f;
+		intersection.t = tMax*0.999f;
 		intersection.position = ray.origin + ray.direction * intersection.t;
-		intersection.normal = Vector3(0);
+		intersection.normal = -ray.direction;
 		intersection.material = material;
 
 		return true;

@@ -38,7 +38,7 @@ namespace gui {
 						intersection.normal = normal;
 					else
 						intersection.normal = -normal;
-					intersection.position = x + intersection.normal * 0.0001f;
+					intersection.position = x;
 					intersection.material = material;
 					return true;
 				} else

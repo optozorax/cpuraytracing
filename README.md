@@ -7,7 +7,7 @@ It is my attempt to understand how [Ray Tracing](https://en.wikipedia.org/wiki/R
 Source code received from `GUI-Graphics` repository, which written with `"Ray Tracing in One Weekend"` book.
 
 ## Features:
-- Photorealistic rendering.
+- [Phong Model](http://en.wikipedia.org/wiki/Phong_reflection_model) and Monte Carlo [Path Tracing](http://en.wikipedia.org/wiki/Path_tracing) Model.
 - [Depth of field](https://en.wikipedia.org/wiki/Depth_of_field) effect.
 - [Caustic](https://en.wikipedia.org/wiki/Caustic_(optics)) effect(received by rendering algorithm).
 - Natural shadows(received by rendering algorithm).
