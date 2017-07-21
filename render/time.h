@@ -12,6 +12,7 @@ namespace gui {
 		static float getLeftTime(float pastTime, float percent);
 		static std::string getTimeString(float time);
 		static void writeTimeStatus(float pastTime, float percent);
+		static void Time::writeTotalTime(float pastTime);
 
 		static bool formatTime;
 	};

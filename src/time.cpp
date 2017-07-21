@@ -1,6 +1,7 @@
 #include <windows.h>
 #include <string>
 #include <iostream>
+#include <iomanip>
 #include <stdio.h>
 #include <math.h>
 #include "render/time.h"
@@ -17,11 +18,17 @@ namespace gui {
 	}
 
 	float Time::getApproxTime(float pastTime, float percent) {
-		return getTimePassed(pastTime)/percent;
+		if (percent == 0)
+			return 0;
+		else
+			return getTimePassed(pastTime)/percent;
 	}
 
 	float Time::getLeftTime(float pastTime, float percent) {
-		return getApproxTime(pastTime, percent) - getTimePassed(pastTime);
+		if (percent == 0)
+			return 0;
+		else
+			return getApproxTime(pastTime, percent) - getTimePassed(pastTime);
 	}
 
 	std::string Time::getTimeString(float time) {
@@ -55,12 +62,23 @@ namespace gui {
 	void Time::writeTimeStatus(float pastTime, float percent) {
 		std::cout.precision(2);
 		std::cout 
-			<< "\rTime passed: "
+			<< "\r" << std::setfill(' ') << std::setw(80) << ' ' << std::setw(1) << "\r"
+			<< "Time passed: "
 			<< Time::getTimeString(Time::getTimePassed(pastTime))
 			<< "; Approximate time: "
 			<< Time::getTimeString(Time::getApproxTime(pastTime, percent))
 			<< "; Time left: "
 			<< Time::getTimeString(Time::getLeftTime(pastTime, percent))
-			<< "; "<< 100.0f * percent << '%';
+			<< ";\t"<< 100.0f * percent << '%';
+	}
+
+	void Time::writeTotalTime(float pastTime) {
+		bool oldFormat = Time::formatTime;
+		Time::formatTime = false;
+		std::cout 
+			<< "\r" << std::setfill(' ') << std::setw(80) << ' ' << std::setw(1) << "\r"
+			<< "Total time: "
+			<< Time::getTimeString(Time::getTimePassed(pastTime));
+		Time::formatTime = oldFormat;
 	}
 }

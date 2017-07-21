@@ -12,6 +12,8 @@
 
 namespace gui {
 	Vector3 Renderer::radiance(const Ray& ray, const Scene& scene, int depth) const {
+		//printf("o: %.5f %.5f %.5f; d: %.5f %.5f %.5f;\n", ray.origin.x, ray.origin.y, ray.origin.z, ray.direction.x, ray.direction.y, ray.direction.z);
+
 		Intersection intersection;
 		Ray scattered;
 		Vector3 attenuation;
@@ -34,13 +36,17 @@ namespace gui {
 		onRendering();
 
 		int count = 0;
+		#pragma omp parallel for shared(camera) num_threads(1)
 		for(int i = 0; i < camera.film.height; ++i) {
+			#pragma omp critical (section2)
+			{
 			onEveryLine(float(count)/camera.film.height);
+			}
 
 			for(int j = 0; j < camera.film.width; ++j) {
-				Ray ray = camera.getRay(j, i);
-				camera.film.pixels[i][j] += radiance(ray, scene, 0);
-				for (int k = 1; k < samples; ++k) {
+				//Ray ray = camera.getRay(j, i);
+				//camera.film.pixels[i][j] += radiance(ray, scene, 0);
+				for (int k = 0; k < samples; ++k) {
 					Ray ray = camera.getRay(j + Math::random(), i + Math::random());
 					camera.film.pixels[i][j] += radiance(ray, scene, 0);
 				}
@@ -61,11 +67,6 @@ namespace gui {
 	}
 
 	void Renderer::onEndRendering() {
-		bool oldFormat = Time::formatTime;
-		Time::formatTime = false;
-		std::cout 
-			<< "\rPicture rendered with time: "
-			<< Time::getTimeString(Time::getTimePassed(pastTime));
-		Time::formatTime = oldFormat;
+		Time::writeTotalTime(pastTime);
 	}
 }

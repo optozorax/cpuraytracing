@@ -1,8 +1,8 @@
 CXX = g++
-CXXFLAGS += -O3 -std=c++11 -w -I . -fpermissive -static-libgcc
+CXXFLAGS += -O3 -std=c++11 -w -I . -fpermissive -static-libgcc -fopenmp
 OBJECTS = $(patsubst src/%,%, $(patsubst %.cpp,%.o,$(wildcard src/*.cpp)))
 
-all: demo1 demo2 demo3
+all: $(OBJECTS) demo1 demo2 demo3 demo4
 
 demo%: $(OBJECTS) demo%.o
 	$(CXX) $(CXXFLAGS) -s $(OBJECTS) $@.o -o $@.exe
