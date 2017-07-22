@@ -26,14 +26,13 @@ namespace gui {
 			Intersection& intersection
 		) const;
 	private:
-		Vector3 origin, direction;
 		Transformation* tr;
 
-		template <class I> inline I f(const I& t);
-		template <class I> inline I f_diff(const I& t);
-		float DichotomyMethod(float a, float b, float& t);
-		bool NewtonMethod(float x, float min, float max, float& t);
-		bool ray_intersect(const Inter t, float& t1, int depth);
+		template <class I> inline I f(const I& t, const Vector3& oirigin, const Vector3& direction);
+		template <class I> inline I f_diff(const I& t, const Vector3& origin, const Vector3& direction);
+		float DichotomyMethod(float a, float b, float& t, const Vector3& o, const Vector3& d);
+		bool NewtonMethod(float x, float min, float max, float& t, const Vector3& o, const Vector3& d);
+		bool ray_intersect(const Inter t, float& t1, int depth, const Vector3& o, const Vector3& d);
 	};
 
 	// ------------------------------------------------------------------------
@@ -42,7 +41,7 @@ namespace gui {
 
 	template <template<class> class F>
 	template <class I>
-	inline I Implicit<F>::f(const I& t) { 
+	inline I Implicit<F>::f(const I& t, const Vector3& origin, const Vector3& direction) { 
 		I x = I(origin.x) + I(direction.x) * t;
 		I y = I(origin.y) + I(direction.y) * t;
 		I z = I(origin.z) + I(direction.z) * t;
@@ -51,7 +50,7 @@ namespace gui {
 
 	template <template<class> class F>
 	template <class I>
-	inline I Implicit<F>::f_diff(const I& t) {
+	inline I Implicit<F>::f_diff(const I& t, const Vector3& origin, const Vector3& direction) {
 		// returns df(origin + direction * t)/dt
 		I x = I(origin.x) + I(direction.x) * t;
 		I y = I(origin.y) + I(direction.y) * t;
@@ -67,18 +66,18 @@ namespace gui {
 	}
 
 	template <template<class> class F>
-	bool Implicit<F>::NewtonMethod(float x, float min, float max, float& t) {
-		const int maxIter = 10;
+	bool Implicit<F>::NewtonMethod(float x, float min, float max, float& t, const Vector3& o, const Vector3& d) {
+		const int maxIter = 20;
 		const float eps = 0.00005f;
 
 		for (int i = 0; i < maxIter; ++i) {
-			x = x - f<float>(x)/f_diff<float>(x);
-			if (fabs(f<float>(x)) < eps*x) {
+			x = x - f<float>(x, o, d)/f_diff<float>(x, o, d);
+			if (fabs(f<float>(x, o, d)) < eps*x) {
 				t = x;
 				return true;
 			}
 
-			if (x > max && x < min) 
+			if (x > max || x < min)
 				return false;
 		}
 
@@ -86,18 +85,18 @@ namespace gui {
 	}
 
 	template <template<class> class F>
-	float Implicit<F>::DichotomyMethod(float a, float b, float& t) {
+	float Implicit<F>::DichotomyMethod(float a, float b, float& t, const Vector3& o, const Vector3& d) {
 		const int maxIter = 50;
-		const float eps = 0.005f;
-		float fa = f<float>(a);
-		float fb = f<float>(b);
+		const float eps = 0.000005f;
+		float fa = f<float>(a, o, d);
+		float fb = f<float>(b, o, d);
 		float c, fc;
 
 		if (fa*fb > 0) return false;
 
 		for (int i = 0; i < maxIter; ++i) {
 			c = (a+b)/2.0f;
-			fc = f<float>(c);
+			fc = f<float>(c, o, d);
 
 			if (fa*fc < 0) {
 				fb = fc;
@@ -107,17 +106,15 @@ namespace gui {
 				a = c;
 			};
 
-			if (fabs(b-a) < eps*a) {
-				NewtonMethod(c, a, b, t);
-				return true;
-			}
+			if (fabs(b-a) < eps*a)
+				return NewtonMethod(c, a, b, t, o, d);;
 		}
 
 		return false;
 	}
 
 	template <template<class> class F>
-	bool Implicit<F>::ray_intersect(const Inter t, float& t1, int depth) {
+	bool Implicit<F>::ray_intersect(const Inter t, float& t1, int depth, const Vector3& o, const Vector3& d) {
 		// Write in RES most left interval which has root, and when function is monotone.
 		// Return true if this interval exist on t.
 		// Monotone == function has one root on interval.
@@ -129,21 +126,21 @@ namespace gui {
 		if (depth > 50)  return false;
 		Inter s, r, t2;
 
-		s = f<Inter>(t);
+		s = f<Inter>(t, o, d);
 		if (!zero_in(s)) {
 			return false;
 		} else {
-			r = f_diff<Inter>(t);
+			r = f_diff<Inter>(t, o, d);
 			if (!zero_in(r)) {
-				return DichotomyMethod(t.lower(), t.upper(), t1);
-				//return NewtonMethod((t.lower()+t.upper())/2.0f, t.lower(), t.upper(), t1);
+				return DichotomyMethod(t.lower(), t.upper(), t1, o, d);
+				//return NewtonMethod((t.lower()+t.upper())/2.0f, t.lower(), t.upper(), t1, o, d);
 			} else {
 				t2 = Inter(t.lower(), (t.lower()+t.upper())/2.0f);
-				if (ray_intersect(t2, t1, ++depth)) 
+				if (ray_intersect(t2, t1, ++depth, o, d)) 
 					return true;
 				else {
 					t2 = Inter((t.lower()+t.upper())/2.0f, t.upper());
-					return ray_intersect(t2, t1, ++depth); 
+					return ray_intersect(t2, t1, ++depth, o, d); 
 				}
 			}
 		}
@@ -156,12 +153,13 @@ namespace gui {
 		float tMax,
 		Intersection& intersection
 	) const {
-		origin = ray.origin;
-		direction = ray.direction;
+		Vector3 origin = ray.origin;
+		Vector3 direction = ray.direction;
 		tr->transform(origin, direction);
 
 		float t;
-		if (ray_intersect(Inter(tMin, tMax), t, 0)) {
+
+		if (ray_intersect(Inter(tMin, tMax), t, 0, origin, direction)) {
 			intersection.t = t;
 			intersection.position = origin + direction * t;
 
@@ -175,6 +173,7 @@ namespace gui {
 			tr->inverse(intersection.position, intersection.normal);
 
 			intersection.material = material;
+
 			return true;
 		} else
 			return false;

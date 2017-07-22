@@ -12,8 +12,6 @@
 
 namespace gui {
 	Vector3 Renderer::radiance(const Ray& ray, const Scene& scene, int depth) const {
-		//printf("o: %.5f %.5f %.5f; d: %.5f %.5f %.5f;\n", ray.origin.x, ray.origin.y, ray.origin.z, ray.direction.x, ray.direction.y, ray.direction.z);
-
 		Intersection intersection;
 		Ray scattered;
 		Vector3 attenuation;
@@ -36,7 +34,8 @@ namespace gui {
 		onRendering();
 
 		int count = 0;
-		#pragma omp parallel for shared(camera) num_threads(1)
+		omp_set_num_threads(threads);
+		#pragma omp parallel for shared(camera)
 		for(int i = 0; i < camera.film.height; ++i) {
 			#pragma omp critical (section2)
 			{
@@ -44,9 +43,9 @@ namespace gui {
 			}
 
 			for(int j = 0; j < camera.film.width; ++j) {
-				//Ray ray = camera.getRay(j, i);
-				//camera.film.pixels[i][j] += radiance(ray, scene, 0);
-				for (int k = 0; k < samples; ++k) {
+				Ray ray = camera.getRay(j, i);
+				camera.film.pixels[i][j] += radiance(ray, scene, 0);
+				for (int k = 1; k < samples; ++k) {
 					Ray ray = camera.getRay(j + Math::random(), i + Math::random());
 					camera.film.pixels[i][j] += radiance(ray, scene, 0);
 				}
@@ -59,14 +58,17 @@ namespace gui {
 	}
 
 	void Renderer::onRendering() {
-		pastTime = Time::getCurrentTime();
+		if (log)
+			pastTime = Time::getCurrentTime();
 	}
 
 	void Renderer::onEveryLine(float percent) {
-		Time::writeTimeStatus(pastTime, percent);
+		if (log)
+			Time::writeTimeStatus(pastTime, percent);
 	}
 
 	void Renderer::onEndRendering() {
-		Time::writeTotalTime(pastTime);
+		if (log)
+			Time::writeTotalTime(pastTime);
 	}
 }

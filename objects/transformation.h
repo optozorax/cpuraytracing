@@ -31,7 +31,7 @@ namespace gui {
 
 	class TrMove : public Transformation {
 	public:
-		TrMove(Transformation* tr, Vector3 c) : Transformation(tr), c(c) {}
+		TrMove(Vector3 c, Transformation* tr) : Transformation(tr), c(c) {}
 
 		void transform(
 			const Vector3& origin,
@@ -57,33 +57,9 @@ namespace gui {
 		Vector3 c;
 	};
 
-	class TrRotate : public Transformation {
+	class TrScale : public Transformation {
 	public:
-		TrRotate(Transformation* tr, Vector3 angles) : Transformation(tr), angles(angles) {
-			m1.x = cos(angles.x)*cos(angles.z) - sin(angles.x)*cos(angles.y)*sin(angles.z);
-			m1.y = -cos(angles.x)*sin(angles.z) - sin(angles.x)*cos(angles.y)*cos(angles.z);
-			m1.z = sin(angles.x)*sin(angles.y);
-
-			m2.x = sin(angles.x)*cos(angles.z) + cos(angles.x)*cos(angles.y)*sin(angles.z);
-			m2.y = -sin(angles.x)*sin(angles.z) + cos(angles.x)*cos(angles.y)*cos(angles.z);
-			m2.z = -cos(angles.x)*sin(angles.y);
-
-			m3.x = sin(angles.y)*sin(angles.z);
-			m3.y = sin(angles.y)*cos(angles.z);
-			m3.z = cos(angles.y);
-
-			n1.x = cos(angles.z)*cos(angles.x) - sin(angles.z)*cos(angles.y)*sin(angles.x);
-			n1.y = cos(angles.z)*sin(angles.x) + sin(angles.z)*cos(angles.y)*cos(angles.x);
-			n1.z = sin(angles.z)*sin(angles.y);
-
-			n2.x = -sin(angles.z)*cos(angles.x) - cos(angles.z)*cos(angles.y)*sin(angles.x);
-			n2.y = -sin(angles.z)*sin(angles.x) + cos(angles.z)*cos(angles.y)*cos(angles.x);
-			n2.z = cos(angles.z)*sin(angles.y);
-
-			n3.x = sin(angles.y)*sin(angles.x);
-			n3.y = -sin(angles.y)*cos(angles.x);
-			n3.z = cos(angles.y);
-		}
+		TrScale(Vector3 c, Transformation* tr) : Transformation(tr), c(c) {}
 
 		void transform(
 			const Vector3& origin,
@@ -92,10 +68,61 @@ namespace gui {
 			if (tr != nullptr) 
 				tr->transform(origin, direction);
 
+			origin /= c;
+			direction /= c;
+		};
+
+		void inverse(
+			const Vector3& origin,
+			const Vector3& direction
+		) {
+			origin *= c;
+			direction *= c;
+
+			if (tr != nullptr) 
+				tr->inverse(origin, direction);
+		};
+
+	private:
+		Vector3 c;
+	};
+
+	class TrRotate : public Transformation {
+	public:
+		rotate2(float& x, float &y, float angle) {
+			float x1 = cos(angle)*x - sin(angle)*y;
+			float y1 = sin(angle)*x + cos(angle)*y;
+			x = x1;
+			y = y1;
+		}
+
+		rotate3(Vector3& a, Vector3 angles) {
+			rotate2(a.x, a.y, angles.z);
+			rotate2(a.x, a.z, angles.y);
+			rotate2(a.y, a.z, angles.x);
+		}
+
+		rotate3i(Vector3& a, Vector3 angles) {
+			rotate2(a.y, a.z, -angles.x);
+			rotate2(a.x, a.z, -angles.y);
+			rotate2(a.x, a.y, -angles.z);
+		}
+
+		TrRotate(Vector3 angles, Transformation* tr) : Transformation(tr), angles(angles) { }
+
+		void transform(
+			const Vector3& origin,
+			const Vector3& direction
+		) {
+			if (tr != nullptr) 
+				tr->transform(origin, direction);
+
+			Vector3 orig = origin;
 			Vector3 ordirection = origin + direction;
 
-			origin = Vector3(m1.dot(origin), m2.dot(origin), m3.dot(origin));
-			ordirection = Vector3(m1.dot(ordirection), m2.dot(ordirection), m3.dot(ordirection));
+			rotate3(orig, angles);
+			rotate3(ordirection, angles);
+			origin = orig;
 			direction = (ordirection-origin).identity();
 		};
 
@@ -103,10 +130,12 @@ namespace gui {
 			const Vector3& origin,
 			const Vector3& direction
 		) {
+			Vector3 orig = origin;
 			Vector3 ordirection = origin + direction;
 
-			origin = Vector3(n1.dot(origin), n2.dot(origin), n3.dot(origin));
-			ordirection = Vector3(n1.dot(ordirection), n2.dot(ordirection), n3.dot(ordirection));
+			rotate3i(orig, angles);
+			rotate3i(ordirection, angles);
+			origin = orig;
 			direction = (ordirection-origin).identity();
 
 			if (tr != nullptr) 

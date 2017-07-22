@@ -10,7 +10,9 @@ namespace gui {
 		Renderer(int samples) : 
 			samples(samples), 
 			maxDepth(30),
-			maxT(10000)
+			maxT(10000),
+			threads(1),
+			log(true)
 		{ }
 
 		void render(const Scene& scene, Camera& camera) const;
@@ -26,6 +28,9 @@ namespace gui {
 		void onEveryLine(float percent);
 		void onEndRendering(void);
 		float pastTime;
+
+		int threads;
+		bool log;
 	};
 }
 
