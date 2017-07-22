@@ -35,9 +35,9 @@ int main() {
 
 	float pastTime = Time::getCurrentTime();
 	int count = 0;
-	//#pragma omp parallel for num_threads(3)
-	//for (int j = 0; j < 90; ++j) 
-	{ int j = 0; int i = 240;
+	#pragma omp parallel for num_threads(2)
+	for (int j = 0; j < 90; ++j) {
+		int i = 240;
 		Scene scene;
 		initScene(scene);
 		scene.shapes.push_back(
@@ -45,13 +45,13 @@ int main() {
 			new TrRotate(Vector3(j*2, 0, 0)/180.0f * Math::PI, 
 				new TrMove(Vector3(-1.5, 2, 0), nullptr)
 			)
-		));
+		, new float[2]{1.0f, 1.0f/3.0f}));
 		scene.shapes.push_back(
 			new Implicit<Torus>(new Dielectric(1.5f), 
 			new TrRotate(Vector3(j*2, 0, 0)/180.0f * Math::PI, 
 				new TrMove(Vector3(1.5, 2, 0), nullptr)
 			)
-		));
+		, new float[2]{1.0f, 1.0f/3.0f}));
 
 		scene.shapes.push_back(
 			new Implicit<Torus>(new Diffuse(Vector3(0.9f, 0.3f, 0.9f)), 
@@ -60,7 +60,7 @@ int main() {
 					new TrMove(Vector3(0, 2, 1.5), nullptr)
 				)
 			)
-		));
+		, new float[2]{1.0f, 1.0f/5.0f}));
 
 		float alpha = i/180.0 * Math::PI;
 
@@ -70,7 +70,8 @@ int main() {
 		camera.position = Vector3(cos(alpha)*r, fabs(sin(alpha)*h)+1, sin(alpha)*r);
 		camera.lookAt(Vector3(0, 2, 0));
 
-		Renderer renderer(100);
+		Renderer renderer(400);
+		renderer.log = false;
 		renderer.render(scene, camera);
 
 		film.gammaCorrection();

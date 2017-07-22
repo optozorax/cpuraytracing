@@ -1,4 +1,5 @@
 #include <iostream>
+#include <omp.h>
 
 #include "render/ray.h"
 #include "render/math.h"

@@ -15,7 +15,7 @@ namespace gui {
 	template <template<class> class F>
 	class Implicit : public Shape {
 	public:
-		Implicit(Material* material, Transformation* tr) : Shape(material), tr(tr) { }
+		Implicit(Material* material, Transformation* tr, void* data) : Shape(material), tr(tr), data(data) { }
 
 		~Implicit() { }
 
@@ -27,6 +27,7 @@ namespace gui {
 		) const;
 	private:
 		Transformation* tr;
+		void* data;
 
 		template <class I> inline I f(const I& t, const Vector3& oirigin, const Vector3& direction);
 		template <class I> inline I f_diff(const I& t, const Vector3& origin, const Vector3& direction);
@@ -45,7 +46,7 @@ namespace gui {
 		I x = I(origin.x) + I(direction.x) * t;
 		I y = I(origin.y) + I(direction.y) * t;
 		I z = I(origin.z) + I(direction.z) * t;
-		return F<I>::function(x, y, z); 
+		return F<I>::function(x, y, z, data); 
 	}
 
 	template <template<class> class F>
@@ -57,7 +58,7 @@ namespace gui {
 		I z = I(origin.z) + I(direction.z) * t;
 
 		I xn, yn, zn;
-		F<I>::normal(x, y, z, xn, yn, zn);
+		F<I>::normal(x, y, z, xn, yn, zn, data);
 
 		I xd = I(direction.x);
 		I yd = I(direction.y);
@@ -168,7 +169,7 @@ namespace gui {
 				intersection.position.x, 
 				intersection.position.y, 
 				intersection.position.z, 
-				x, y, z);
+				x, y, z, data);
 			intersection.normal = Vector3(x, y, z).identity();
 			tr->inverse(intersection.position, intersection.normal);
 
