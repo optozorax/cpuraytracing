@@ -38,21 +38,6 @@ namespace gui {
 		}
 	}
 
-	void Film::writePPM(char* name) const {
-		std::ofstream file;
-		file.open(name);
-		file << "P3\n" << width << ' ' << height << '\n' << "255\n";
-		for(int i = 0; i < height; ++i) {
-			for(int j = 0; j < width; ++j) {
-				file << (int) (pixels[i][j].x * 255) << ' '
-					 << (int) (pixels[i][j].y * 255) << ' '
-					 << (int) (pixels[i][j].z * 255) << ' ';
-			}
-			file << '\n';
-		}
-		file.close();
-	}
-
 	void Film::writeBMP(char* name) const {
 		BMP AnImage;
 		AnImage.SetBitDepth(24);

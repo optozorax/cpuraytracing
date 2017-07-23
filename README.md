@@ -30,6 +30,7 @@ Source code received from `GUI-Graphics` repository, which written with `"Ray Tr
 
 ## Demo1
 ![](image1.png)
+
 Image with uniform lighting from sky. 
 
 Size: `1024 x 576`.
@@ -40,6 +41,7 @@ Size: `1024 x 576`.
 
 ## Demo2
 ![](image2.png)
+
 Image with light from glowing sphere in empty space. 
 
 Size: `1024 x 576`. 
@@ -50,6 +52,7 @@ Size: `1024 x 576`.
 
 ## Demo3
 ![](image3.png)
+
 Image with light from sqare lamp, with walls. 
 
 Size: `1024 x 1024`. 
@@ -60,7 +63,8 @@ Size: `1024 x 1024`.
 
 ## Demo4
 ![](image4.gif)
-Animation of torus rotating.
+
+Animation of torus rotating. Torus is implicit surface.
 
 Size: `500 x 250`. 
 
@@ -68,4 +72,4 @@ Size: `500 x 250`.
 
 `400 samples` per pixel. 
 
-`21h 14m 23s` rendering time.
+`42h 28m 46s` rendering time.

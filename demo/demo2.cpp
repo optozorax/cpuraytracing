@@ -49,7 +49,7 @@ int main() {
 	renderer.render(scene, camera);
 
 	film.gammaCorrection();
-	film.writePPM("image2.ppm");
+	film.writeBMP("image2.bmp");
 
 	return 0;
 }

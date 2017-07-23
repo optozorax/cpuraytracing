@@ -9,7 +9,6 @@ namespace gui {
 		Film(int width = 1024, int height = 512);
 		~Film();
 
-		void writePPM(char* name) const;
 		void writeBMP(char* name) const;
 		void gammaCorrection();
 
