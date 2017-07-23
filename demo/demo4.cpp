@@ -84,7 +84,7 @@ int main() {
 		{
 			count++;
 			std::cout << "\rCount: " << count;
-			Time::writeTimeStatus(pastTime, count/180.0f);
+			Time::writeTimeStatus(pastTime, count/90.0f);
 		}
 	}
 	Time::writeTotalTime(pastTime);

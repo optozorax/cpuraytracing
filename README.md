@@ -57,3 +57,15 @@ Size: `1024 x 1024`.
 `5000 samples` per pixel. 
 
 `5h 47m` rendering time.
+
+## Demo4
+![](image4.gif)
+Animation of torus rotating.
+
+Size: `500 x 250`. 
+
+`90` frames.
+
+`400 samples` per pixel. 
+
+`21h 14m 23s` rendering time.
