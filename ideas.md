@@ -34,6 +34,8 @@
 
 Когда-нибудь сделать подповерхностное рассеивание и облака.
 	https://www.solidangle.com/research/egsr2012_volume.pdf
+	https://cseweb.ucsd.edu/~ravir/6998/papers/p165-hanrahan.pdf
+	https://graphics.pixar.com/library/PhotonBeamDiffusion/paper.pdf
 
 -------------------------------------------------------------------------------
 
