@@ -1,4 +1,6 @@
 *.o
 *.lnk
 *.ppm
+*.bmp
 *.exe
+imgs/

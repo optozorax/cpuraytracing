@@ -29,6 +29,12 @@ Source code received from `GUI-Graphics` repository, which written with `"Ray Tr
 - Impossible to create dotty light source.
 - Very long rendering.
 
+## Build
+
+```
+make
+```
+
 ## Implicit functions rendering.
 
 For example, I have equation of [torus](https://en.wikipedia.org/wiki/Torus) surface `(x^2+y^2+z^2+R^2-r^2)^2 - 4*R^2*(x^2+y^2)=0`. To find intersection with ray(`r = origin + direction*t`, when `r`, `origin` and `direction` is 3D vectors) and surface of this figure I use [interval arithmetic](https://en.wikipedia.org/wiki/Interval_arithmetic) and modified method written in [this paper](https://pdfs.semanticscholar.org/fc57/b015acfc62c54a4bd82ca1ef1e3ef4d0c710.pdf) on page 10. For details you can view the code of function `ray_intersection` in `objects/implicit.h`.
