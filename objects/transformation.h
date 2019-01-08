@@ -40,14 +40,14 @@ namespace gui {
 			if (tr != nullptr) 
 				tr->transform(origin, direction);
 
-			origin -= c;
+			//origin -= c;
 		};
 
 		void inverse(
 			const Vector3& origin,
 			const Vector3& direction
 		) {
-			origin += c;
+			//origin += c;
 
 			if (tr != nullptr) 
 				tr->inverse(origin, direction);
@@ -68,16 +68,16 @@ namespace gui {
 			if (tr != nullptr) 
 				tr->transform(origin, direction);
 
-			origin /= c;
-			direction /= c;
+			//origin /= c;
+			//direction /= c;
 		};
 
 		void inverse(
 			const Vector3& origin,
 			const Vector3& direction
 		) {
-			origin *= c;
-			direction *= c;
+			//origin *= c;
+			//direction *= c;
 
 			if (tr != nullptr) 
 				tr->inverse(origin, direction);
@@ -89,20 +89,20 @@ namespace gui {
 
 	class TrRotate : public Transformation {
 	public:
-		rotate2(float& x, float &y, float angle) {
+		void rotate2(float& x, float &y, float angle) {
 			float x1 = cos(angle)*x - sin(angle)*y;
 			float y1 = sin(angle)*x + cos(angle)*y;
 			x = x1;
 			y = y1;
 		}
 
-		rotate3(Vector3& a, Vector3 angles) {
+		void rotate3(Vector3& a, Vector3 angles) {
 			rotate2(a.x, a.y, angles.z);
 			rotate2(a.x, a.z, angles.y);
 			rotate2(a.y, a.z, angles.x);
 		}
 
-		rotate3i(Vector3& a, Vector3 angles) {
+		void rotate3i(Vector3& a, Vector3 angles) {
 			rotate2(a.y, a.z, -angles.x);
 			rotate2(a.x, a.z, -angles.y);
 			rotate2(a.x, a.y, -angles.z);
@@ -122,8 +122,8 @@ namespace gui {
 
 			rotate3(orig, angles);
 			rotate3(ordirection, angles);
-			origin = orig;
-			direction = (ordirection-origin).identity();
+			//origin = orig;
+			//direction = (ordirection-origin).identity();
 		};
 
 		void inverse(
@@ -135,8 +135,8 @@ namespace gui {
 
 			rotate3i(orig, angles);
 			rotate3i(ordirection, angles);
-			origin = orig;
-			direction = (ordirection-origin).identity();
+			//origin = orig;
+			//direction = (ordirection-origin).identity();
 
 			if (tr != nullptr) 
 				tr->inverse(origin, direction);

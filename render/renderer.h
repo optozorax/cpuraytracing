@@ -24,10 +24,10 @@ namespace gui {
 		int maxT;
 
 	public:
-		void onRendering(void);
-		void onEveryLine(float percent);
-		void onEndRendering(void);
-		float pastTime;
+		void onRendering(void) const;
+		void onEveryLine(float percent) const;
+		void onEndRendering(void) const;
+		mutable float pastTime;
 
 		int threads;
 		bool log;

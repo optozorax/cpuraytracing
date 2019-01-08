@@ -7,11 +7,12 @@
 
 namespace gui {
 	bool SkyMaterial::scatter(
-		const Ray& in,
+		const Ray& in1,
 		const Intersection& intersection,
 		Vector3& attenuation,
 		Ray& scattered,
 		bool& light) const {
+		Ray in = in1;
 
 		light = true;
 

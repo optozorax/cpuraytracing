@@ -9,7 +9,7 @@ namespace gui {
 		Intersection& intersection) const {
 
 		bool intersected = false;
-		for (i : shapes) {
+		for (auto& i : shapes) {
 			if(i->intersect(ray, tMin, tMax, intersection)) {
 				if(intersection.t < tMax) {
 					tMax = intersection.t;

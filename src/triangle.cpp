@@ -5,7 +5,7 @@
 #include "objects/triangle.h"
 
 namespace gui {
-	float Triangle::area(float a, float b, float c) {
+	float Triangle::area(float a, float b, float c) const {
 		float p = (a + b + c)/2.0f;
 		return sqrtf(p*(p-a)*(p-b)*(p-c));
 	}

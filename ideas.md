@@ -15,6 +15,8 @@
 Переделать сцену, чтобы методы трансформации луча выполялись над каждым объектом в поиске пересечения сцены.
 	Добавить трансформацию LookAt.
 
+Сделать камеру в 360 градусов.
+
 Для неявно заданных поверхностей добавить:
 	Еще поверхности. 
 		https://www.cs.williams.edu/~morgan/cs371-f14/reading/implicit.pdf 
@@ -36,6 +38,7 @@
 	https://www.solidangle.com/research/egsr2012_volume.pdf
 	https://cseweb.ucsd.edu/~ravir/6998/papers/p165-hanrahan.pdf
 	https://graphics.pixar.com/library/PhotonBeamDiffusion/paper.pdf
+	https://www.semanticscholar.org/paper/Interactive-directional-subsurface-scattering-and-Corso-Frisvad/62b68e4535f405f6d54cf339fcd2d96d0cf349b0
 
 -------------------------------------------------------------------------------
 

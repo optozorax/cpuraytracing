@@ -40,7 +40,7 @@ namespace gui {
 		for(int i = 0; i < camera.film.height; ++i) {
 			#pragma omp critical (section2)
 			{
-			onEveryLine(float(count)/camera.film.height);
+			onEveryLine(double(count)/camera.film.height);
 			}
 
 			for(int j = 0; j < camera.film.width; ++j) {
@@ -58,17 +58,17 @@ namespace gui {
 		onEndRendering();
 	}
 
-	void Renderer::onRendering() {
+	void Renderer::onRendering() const {
 		if (log)
 			pastTime = Time::getCurrentTime();
 	}
 
-	void Renderer::onEveryLine(float percent) {
+	void Renderer::onEveryLine(float percent) const {
 		if (log)
 			Time::writeTimeStatus(pastTime, percent);
 	}
 
-	void Renderer::onEndRendering() {
+	void Renderer::onEndRendering() const {
 		if (log)
 			Time::writeTotalTime(pastTime);
 	}

@@ -7,7 +7,7 @@
 #include "render/time.h"
 
 namespace gui {
-	extern bool Time::formatTime = false;
+	bool Time::formatTime = false;
 
 	float Time::getCurrentTime(void) {
 		return GetTickCount()/1000.0f;
@@ -62,7 +62,7 @@ namespace gui {
 	void Time::writeTimeStatus(float pastTime, float percent) {
 		std::cout.precision(2);
 		std::cout 
-			<< "\r" << std::setfill(' ') << std::setw(80) << ' ' << std::setw(1) << "\r"
+			<< "\r" << std::setfill(' ') << std::setw(79) << ' ' << std::setw(1) << "\r"
 			<< "Time passed: "
 			<< Time::getTimeString(Time::getTimePassed(pastTime))
 			<< "; Approximate time: "
@@ -76,7 +76,7 @@ namespace gui {
 		bool oldFormat = Time::formatTime;
 		Time::formatTime = false;
 		std::cout 
-			<< "\r" << std::setfill(' ') << std::setw(80) << ' ' << std::setw(1) << "\r"
+			<< "\r" << std::setfill(' ') << std::setw(79) << ' ' << std::setw(1) << "\r"
 			<< "Total time: "
 			<< Time::getTimeString(Time::getTimePassed(pastTime));
 		Time::formatTime = oldFormat;

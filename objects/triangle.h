@@ -8,7 +8,7 @@ namespace gui {
 	class Triangle : public Shape {
 	public:
 
-		float area(float a, float b, float c);
+		float area(float a, float b, float c) const;
 
 		Triangle(const Vector3 x1, Vector3 x2, Vector3 x3, Material* material)
 			: Shape(material), x1(x1), x2(x2), x3(x3)
