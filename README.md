@@ -40,7 +40,7 @@ make
 For example, I have equation of [torus](https://en.wikipedia.org/wiki/Torus) surface `(x^2+y^2+z^2+R^2-r^2)^2 - 4*R^2*(x^2+y^2)=0`. To find intersection with ray(`r = origin + direction*t`, when `r`, `origin` and `direction` is 3D vectors) and surface of this figure I use [interval arithmetic](https://en.wikipedia.org/wiki/Interval_arithmetic) and modified method written in [this paper](https://pdfs.semanticscholar.org/fc57/b015acfc62c54a4bd82ca1ef1e3ef4d0c710.pdf) on page 10. For details you can view the code of function `ray_intersection` in `objects/implicit.h`.
 
 ## Demo1
-![](image1.png)
+![](/image1.png)
 
 Image with uniform lighting from sky. 
 
@@ -51,7 +51,7 @@ Size: `1024 x 576`.
 `4h 33m` rendering time.
 
 ## Demo2
-![](image2.png)
+![](/image2.png)
 
 Image with light from glowing sphere in empty space. 
 
@@ -62,7 +62,7 @@ Size: `1024 x 576`.
 `9h 1m` rendering time.
 
 ## Demo3
-![](image3.png)
+![](/image3.png)
 
 Image with light from sqare lamp, with walls. 
 
@@ -73,7 +73,7 @@ Size: `1024 x 1024`.
 `5h 47m` rendering time.
 
 ## Demo4
-![](image4.gif)
+![](/image4.gif)
 
 Animation of torus rotating. Torus is implicit surface.
 
